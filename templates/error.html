@@ -15,11 +15,13 @@
         <link href="{{ url_for('static', filename='css/error.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
+        {% block body %}
         <main class="text-white text-center">
             <h1><i class="fas fa-frown"></i> {{ status }} {{ code }}</h1>
             <i>
                 {{ message }}
             </i>
         </main>
+        {% endblock %}
     </body>
 </html>
