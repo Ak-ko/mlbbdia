@@ -19,8 +19,6 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 COINAMOUNT = [100,250,400,550,1000,2500]
 COINPRICE = [100,250,400,550,1000,2500]
 
-discount_give = 5
-DISCOUNT = (( discount_give / 100) * 100 )
 
 DIAPRICE = [50,150,300,450,700,1200,2000,3100,4800]
 DIAAMOUNT = [40,120,201,423,808,1150,1900,2900,3900]
@@ -57,8 +55,6 @@ def index():
     # coin amount
     coins = db.execute('SELECT coinamount FROM userinfos WHERE userid = ?', userid)
     coin_auto = coins[0]["coinamount"]
-
-    coinbought = request.form.get('coinamount')
 
     # getting the prices
     coins = db.execute('SELECT * FROM coins')
@@ -132,8 +128,6 @@ def index():
 
             coin=coin_auto,
 
-            coin_bought=coinbought,
-
             coinprices=COINPRICE,
 
             coinjson = coinjson,
@@ -144,9 +138,7 @@ def index():
 
             diamondjson=diamondjson,
 
-            bankmoney=bankmoney,
-
-            discount=DISCOUNT,
+            bankmoney=bankmoney
         )
 
 
@@ -161,10 +153,10 @@ def login():
         # get the details of a user
 
         if len(request.form.get("userid")) is not 9:
-            return render_template('error.html',status = "INVALID USERID",code = 400, message = "Sir, please provide valid your userid.")
+            return render_template('error.html',status = "INVALID USERID",code = 406, message = "Sir, please provide valid your userid.")
 
         if len(request.form.get("zoneid")) is not 4:
-            return render_template('error.html',status="INVALID ZONEID",code=400,message="Sir, please provide valid your zoneid")
+            return render_template('error.html',status="INVALID ZONEID",code=406,message="Sir, please provide valid your zoneid")
 
         rows = db.execute("SELECT * FROM userinfos WHERE userid = ?", request.form.get('userid'))
 
