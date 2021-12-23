@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+    <title>MLBB | Login</title>
+
+    <link href="{{ url_for('static', filename='img/miya.png') }}" rel="icon" type="img/png" sizes="16x16" />
+
+    <!-- boostrap css -->
+    <link href="{{ url_for('static', filename='css/boostrap.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- custome css -->
+    <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1 class="text-center header">
+        <img src="{{ url_for('static', filename='img/diamond.png') }}" alt="diamond" class="diamonds" />
+        <span>Welcome to MLBB</span>
+    </h1>
+
+   <main>
+        <div class="inputbox">
+            <form action="/login" method="POST">
+                <div class="form-group userids">
+                    <span id="user"></span>
+                    <input type="number" name="userid" id="userid" class="text-center mb-2 form-control userid" placeholder="User ID" />
+                </div>
+                <div class="form-group zoneids">
+                    <span id="zone"></span>
+                    <input type="number" name="zoneid" id="zoneid" class="text-center mb-2 form-control zoneid" placeholder="Zone ID" />
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn buttons">Submit</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+   <script type="text/javascript">
+       var userid = document.querySelector('.userid');
+       var zoneid = document.querySelector('.zoneid');
+
+       var inputs = document.querySelector('.form-control')
+
+       var btn = document.querySelector('.buttons');
+
+       userid.onblur = function() {
+           if(userid.value) {
+               btn.style.color = "#fff";
+               btn.style.transform = 'scale(1)';
+               btn.style.boxShadow = '5px 5px 10px #000';
+               btn.classList.add('disabled');
+           }
+       }
+
+       zoneid.onkeyup = function() {
+           if(zoneid.value) {
+               btn.classList.remove('disabled');
+           }
+       }
+   </script>
+</body>
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MLBB | Not Found</title>
+
+        <link href="{{ url_for('static', filename='img/miya.png') }}" rel="stylesheet" type="text/css" />
+
+        <!--boostrap css-->
+        <link href="{{ url_for('static', filename='css/boostrap.css') }}" rel="stylesheet" type="text/css" />
+
+        <!--fontawesome-->
+        <link href="{{ url_for('static', filename='css/all.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ url_for('static', filename='css/fontawesome.min.css') }}" rel="stylesheet" type="text/css" />
+
+        <!--Custome css-->
+        <link href="{{ url_for('static', filename='css/error.css') }}" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <main class="text-white text-center">
+            <h1><i class="fal fa-frown me-3"></i>{{ status }} {{ code }}</h1>
+            <i>
+                {{ message }}
+            </i>
+        </main>
+    </body>
+</html>

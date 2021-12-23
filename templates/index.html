@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB | Diamond  {% block title %}{% endblock %}</title>
+
+    <link href="{{ url_for('static', filename='img/miya.png') }}" rel="icon" type="img/png" sizez="16x16" />
+
+    <!-- boostrap css -->
+    <link href="{{ url_for('static',filename='css/boostrap.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- fontawesome css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- custome css -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    {% block body %}
+
+    <!-- Start Navbar -->
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+
+        <a href="/" class="navbar-brand ms-3">
+            <img src="{{ url_for('static', filename='img/diamond.png') }}" alt="diamond" class="diamondimg" />
+        </a>
+
+
+        <button class="navbar-toggler ms-auto collapsebuttons" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="icons"></span>
+        </button>
+
+
+       <div class="container">
+        <div id="mynavbar" class="navbar-collapse collapse">
+
+            <ul class="navbar-nav ms-md-auto navbars">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <img src="{{ url_for('static', filename='img/diamondamount.png') }}" alt="diamondamonut" class="logo" />
+                        <span class="diamondamounts">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-target="#goldmodal" data-bs-toggle="modal" class="nav-link mt-1 mx-3 me-5" style="cursor:pointer;">
+                        <img src="{{ url_for('static', filename='img/coins.png') }}" alt="coins" class="coins" />
+                        <span name="coinamount" id="coinprice" class="coinamounts">{{ coin }}</span>
+                        <span class="fas fa-plus ms-2 plussign" data-bs-target="#goldmodal" data-bs-toggle="modal"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#logoutmodal" class="nav-link mt-1 fw-bold text-danger" data-bs-toggle="modal" style="font-size:20px;">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+       </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- Start Left & Right Section -->
+    <section class="mt-5">
+        <div class="container-fluid px-xl-5 px-lg-4 px-md-3 px-sm-5">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-5 pe-lg-3 pe-0 ps-0 leftsections">
+                    <img src="{{ url_for('static', filename='img/cover.jpg') }}" alt="coverimg" class="img-fluid coverimg" />
+                    <div class="text-light mt-3 px-lg-0 px-md-0 px-2 articles">
+                        <h5 class="mb-4">Mobile Legends</h5>
+
+                        <p>
+                            [23 - 29 Nov] Black Friday sale is here! Get $5 off GrabRide vouchers when you pay with GrabPay.
+                            <br/>Min. spend $40 nett on any game title. T&Cs apply. Read more <a href="#" style="color:yellow;">here</a>
+                        </p>
+
+                        <p>
+                            Top up Mobile Legends: Bang Bang Diamonds in seconds! Just enter your Mobile Legends: Bang Bang user ID, select the value of Diamonds you wish to purchase, complete the payment, and the Diamonds will be added immediately to your MLBB account.
+                        </p>
+
+                        <p>
+                            Pay conveniently using PayNow, PayPal, GrabPay, SingTel, and Card Payment. There's no registration, or log-in required!
+                        </p>
+
+                        <p>
+                            Download Mobile Legends: Bang Bang now!
+                        </p>
+
+                        <div class="downloadsections">
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='img/downloadapple.png') }}" alt="apple" class="me-2" style="border:1px solid #666;border-radius:5px;" />
+                            </a>
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='img/downloadgoogleplay.png') }}" alt="apple" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-8 col-lg-8 col-md-8 col-12 pe-lg-3 pe-sm-3 rightsections">
+                    <div class="sidedivs">
+                        <fieldset id="fieldset">
+                            <legend>
+                                <span class="fw-bold spansymbols mx-3">1</span>
+                                <h5 class="ms-5 ps-4 fw-bold">Enter User ID</h5>
+                            </legend>
+                            <form action="/" method="POST" class="needs-validation">
+                                <div class="container-fluid">
+                                    <div class="row userinputs">
+
+                                            <div class="col-lg-4 col-md-6 col-6 px-lg-2 px-1 ">
+                                                <input type="number" name="userid" id="userid" class="form-control userid ids" placeholder="Enter User ID" value="{{ userid }}" />
+                                                <div class="invalid-feedback text-center">This field is required</div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-5 px-lg-2 px-1">
+                                                <div class="brackets"></div>
+                                                <input type="number" name="serverid" id="serverid" class="form-control serverid ids" placeholder="Zone ID" value="{{ zoneid }}"  />
+                                                <div class="invalid-feedback text-center">This field is required</div>
+
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-12 col-1 mt-2 questionmarks">
+                                                <span class="text-white fw-bold">?</span>
+                                                <img src="{{ url_for('static', filename='img/error.png') }}" alt="errorimg" class="errorimgs" width="500px" />
+                                            </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </fieldset>
+                       <div class="container-fluid mt-1">
+                            <p class="sentences pb-2">
+                                To find your User ID, click on your avatar in the top left corner of the main game screen. Then go to the "Basic Info" tab. Your user ID is shown below your nickname. Please input the complete user ID here, e.g. 12345678(1234).
+                            </p>
+                       </div>
+                    </div>
+
+                    <div class="mt-5 seconddivs sidedivs">
+                        <fieldset>
+                            <span class="fw-bold mx-3 spansymbols">2</span>
+                            <h5 class="ms-5 ps-4 fw-bold">Select Recharge</h5>
+                        </fieldset>
+                        <ul class="buttons">
+                            {% for diamond in diamonds %}
+                                <li>
+                                    <div class="button1">
+                                        <span>{{ diamond }} Diamonds</span>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="sidedivs mt-4">
+                        <fieldset id="fieldset">
+                            <legend>
+                                <span class="fw-bold spansymbols mx-3" style="transform:translateY(-1px);">3</span>
+                            </legend>
+                        </fieldset>
+
+                        <div class="container mt-4">
+                            <div class="paymentsections">
+
+                                    <div class="actualcost roundedcorners">
+                                        <span id="diamondprice">0.00</span>
+                                    </div>
+
+                                    <div class="minus"></div>
+
+                                    <div class="discount roundedcorners">
+                                        <span>0%</span>
+                                    </div>
+
+                                    <div class="equal"></div>
+
+                                    <div class="finalcost roundedcorners">
+                                        <span>0</span>
+                                    </div>
+
+                            </div>
+
+                            <div class="d-grid mt-3 pb-1 roundedcorners">
+                                <button class="btn btn-primary rounded-0 text-uppercase purchasebtns">Purchase</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start Left & Right Section -->
+
+    <!-- START FOOTER SECTION -->
+    <footer class="">
+        <div class="footersections">
+            <div class="left-credit-section text-center" style="border-right:1px solid;">
+                <span>Credit-To CodaShop</span>
+            </div>
+            <div class="mid-social-section text-center" style="border-right:1px solid;">
+                <a href="https://www.facebook.com/profile.php?id=100008789864076" class="me-4"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="me-4"><i class="fab fa-viber"></i></a>
+                <a href="#" class="me-4"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="right-year-section text-center">
+                <span class="yearNow"></span><span> ,Code written by Aung Khant Ko Ko.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- END FOOTER SECTION -->
+
+
+
+
+    <!-- Start Modal Section -->
+
+    <!--START Logout modal-->
+    <div id="logoutmodal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Sure!</h3>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <h4>Press Logout to logout.</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-sm px-3" data-bs-dismiss="modal">Stay</button>
+                    <a href="/logout" class="btn btn-danger btn-sm" data-bs-dismiss="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--END Logout modal-->
+
+    <!-- START GOLD modal -->
+    <div id="goldmodal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body goldcardbody">
+                    <ul class="goldbuttons">
+                        {% for coinprice in coinprices %}
+                            <li>
+                                <div class="card goldcardbuttons">
+                                    <div class="card-body pb-0">
+                                        <div class="text-center">
+                                            <img src="{{ url_for('static', filename='img/coinsbuy.png') }}" alt="coin" class="mb-2 buycoins" />
+                                            <h5>{{ coinprice }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <h6 class="mx-auto" style="font-style:italic;">
+                        <span class="commas">&ldquo;</span>
+                        Click to
+                        <a href="/" id="purchasebtn" class="btn btn-primary btn-sm p-0 px-2 mb-1 text-uppercase" data-bs-dismiss='modal'>Purchase</a>
+                        <span class="commas">&rdquo;</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END GOLD modal -->
+
+    <!-- End Modal Section -->
+
+
+    <!-- popper js -->
+    <script src="{{ url_for('static',filename='js/popper.js') }}" type="text/javascript"></script>
+    <!-- boostrap js -->
+    <script src="{{ url_for('static',filename='js/boostrap.js') }}" type="text/javascript"></script>
+    <!-- custome js -->
+    <script src="{{ url_for('static',filename='js/script.js') }}" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        // START GOLD selection
+        var gbuttons = document.querySelector('.goldbuttons');
+
+        var goldprice = document.querySelector('#coinprice');
+
+        var values = Number(goldprice.textContent);
+
+        var user_coin = values;
+
+        var purchasebtn1 = document.querySelector('#purchasebtn');
+
+        // let myjson = []
+
+        // storing coins from flask
+        var coinjson = JSON.parse('{{ coinjson | tojson | safe }}');
+
+        // bankmoney from flask
+        let bankmoney = JSON.parse('{{ bankmoney | tojson | safe }}')[0].amount;
+
+        for(let i = 1; i < gbuttons.childNodes.length; i+=2){
+
+            var btn_before = window.getComputedStyle(gbuttons.childNodes[i].firstElementChild,'::before');
+            var btn_after = window.getComputedStyle(gbuttons.childNodes[i].firstElementChild,'::after');
+
+            gbuttons.childNodes[i].onclick = () => {
+                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',1);
+                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',1);
+
+                if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11){
+                    // i > opacity 0  --
+                    // i < opacity 0  ++
+                    for(let j = 1; j < i; j+=2){
+                        if(i > j) {
+                            gbuttons.childNodes[i - (j+1)].firstElementChild.style.setProperty('--goldbtnbefore',0);
+                            gbuttons.childNodes[i - (j+1)].firstElementChild.style.setProperty('--goldbtnafter',0);
+                        };
+                    };
+
+                    for(let k = 11; k > 1; k-=2){
+                        if(i < k){
+                            gbuttons.childNodes[k].firstElementChild.style.setProperty('--goldbtnbefore',0);
+                            gbuttons.childNodes[k].firstElementChild.style.setProperty('--goldbtnafter',0);
+                        };
+                    };
+
+                };
+
+                // for ui
+                switch(i){
+                    case 1:
+                        purchasebtn1.onclick = function() {
+                            if (coinjson[0].amount <= bankmoney) {
+
+                                user_coin += coinjson[0].amount;
+
+                                goldprice.textContent = user_coin;
+
+                                bankmoney -= coinjson[0].amount;
+
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
+                            }
+
+                            else {
+                                window.alert('You have not enough money in your bankaccount to buy coins');
+                            }
+                        }
+                        break;
+
+                    case 3:
+                        purchasebtn1.onclick = function() {
+                            if (coinjson[1].amount <= bankmoney) {
+
+                                user_coin += coinjson[1].amount;
+
+
+                                goldprice.textContent = user_coin;
+
+                                bankmoney -= coinjson[1].amount;
+
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
+
+                            }
+
+                            else {
+                                window.alert('You have not enough money in your bankaccount to buy coins');
+                            }
+                        }
+                        break;
+
+                    case 5:
+                        purchasebtn1.onclick = function() {
+                            if (coinjson[2].amount <= bankmoney) {
+
+                                user_coin += coinjson[2].amount;
+
+                                goldprice.textContent = user_coin;
+
+                                bankmoney -= coinjson[2].amount;
+
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
+
+                            }
+
+                            else {
+                                window.alert('You have not enough money in your bankaccount to buy coins');
+                            }
+                        }
+                        break;
+
+                    case 7:
+                        purchasebtn1.onclick = function() {
+                            if (coinjson[3].amount <= bankmoney) {
+
+                                user_coin += coinjson[3].amount;
+
+                                goldprice.textContent = user_coin;
+
+                                bankmoney -= coinjson[3].amount;
+
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
+
+                            }
+
+                            else {
+                                window.alert('You have not enough money in your bankaccount to buy coins');
+                            }
+                        }
+                        break;
+
+                    case 9:
+                        purchasebtn1.onclick = function() {
+                            if (coinjson[4].amount <= bankmoney) {
+
+                                user_coin += coinjson[4].amount;
+
+                                goldprice.textContent = user_coin;
+
+                                bankmoney -= coinjson[4].amount;
+
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
+
+                            }
+
+                            else {
+                                window.alert('You have not enough money in your bankaccount to buy coins');
+                            }
+                        }
+                        break;
+
+                    case 11:
+                        purchasebtn1.onclick = function() {
+                            if (coinjson[5].amount <= bankmoney) {
+
+                                user_coin += coinjson[5].amount;
+
+                                goldprice.textContent = user_coin;
+
+                                bankmoney -= coinjson[5].amount;
+
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
+                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
+                            }
+
+                            else {
+                                window.alert('You have not enough money in your bankaccount to buy coins');
+                            }
+                        }
+                        break;
+                }
+            };
+        };
+
+        //Start of diamonds selection
+        var buttons = document.querySelector('.buttons');
+
+        const DIS = 0.05
+
+        // getting from document
+        var actualprice = document.querySelector('#diamondprice');
+        var discountprice = document.querySelector('.discount');
+        var finalprice = document.querySelector('.finalcost');
+
+
+        // getting the actual values
+        let actual_value = actualprice.value
+        let actual_text = Number(actualprice.textContent);
+
+        actual_value = actual_text
+
+        // getting the discount value
+        let discount_value = discountprice.value;
+        let discount_text = Number(discountprice.textContent);
+        discount_value = discount_text
+
+        // getting the final value
+        let final_value = finalprice.value;
+        let final_text = Number(finalprice.textContent);
+
+        final_value = final_text
+
+        // button
+        var purchasebtn = document.querySelector('.purchasebtns');
+
+        // diamount in the navbar
+        var diaamount = document.querySelector('.diamondamounts');
+        diaamount.value = Number(diaamount.textContent);
+
+
+
+        // parsing the json from flask
+        var diamondjson = JSON.parse('{{ diamondjson | tojson | safe }}');
+
+        for(let i = 1; i < buttons.childNodes.length; i+=2){
+
+            var btn_before = window.getComputedStyle(buttons.childNodes[i].firstElementChild,'::before');
+            var btn_after = window.getComputedStyle(buttons.childNodes[i].firstElementChild,'::after');
+            buttons.childNodes[i].onclick = () => {
+                buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',1);
+                buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',1);
+
+                if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==13 || i==15 || i==17){
+                    // i > opacity 0  --
+                    // i < opacity 0  ++
+                    for(let j = 1; j < i; j+=2){
+                        if(i > j) {
+                            buttons.childNodes[i - (j+1)].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i - (j+1)].firstElementChild.style.setProperty('--btnafter',0);
+                        };
+                    };
+
+                    for(let k = 17; k > 1; k-=2){
+                        if(i < k){
+                            buttons.childNodes[k].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[k].firstElementChild.style.setProperty('--btnafter',0);
+                        };
+                    };
+
+                };
+
+                if(i == 1){
+                    actual_value = diamondjson[0].price
+                    actualprice.textContent = actual_value
+
+                    discount_value = DIS;
+                    discountprice.textContent = (discount_value * 100) + "%";
+
+                    final_value = actual_value - discount_value;
+                    finalprice.textContent = final_value;
+
+                    purchasebtn.onclick = function() {
+                        if(diamondjson[0].price <= user_coin) {
+                            diaamount.value += diamondjson[0].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            // getting the actual coin value.
+                            user_coin -= diamondjson[0].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+
+                if(i == 3){
+                    actual_value = diamondjson[1].price
+                    actualprice.textContent = actual_value
+
+                    discount_value = DIS;
+                    discountprice.textContent = (discount_value * 100) + "%";
+
+                    final_value = actual_value - discount_value;
+                    finalprice.textContent = final_value;
+
+                    purchasebtn.onclick = function() {
+
+                        if(diamondjson[1].price <= user_coin) {
+
+                            diaamount.value += diamondjson[1].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            user_coin -= diamondjson[1].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+
+                if(i == 5){
+                    actual_value = diamondjson[2].price
+                    actualprice.textContent = actual_value
+
+                    discount_value = DIS;
+                    discountprice.textContent = (discount_value * 100) + "%";
+
+                    final_value = actual_value - discount_value;
+                    finalprice.textContent = final_value;
+
+                    purchasebtn.onclick = function() {
+                        if(diamondjson[2].price <= user_coin) {
+
+                            diaamount.value += diamondjson[2].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            user_coin -= diamondjson[2].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+
+                if(i == 7){
+                    actual_value = diamondjson[3].price
+                    actualprice.textContent = actual_value
+
+                    discount_value = DIS;
+                    discountprice.textContent = (discount_value * 100) + "%";
+
+                    final_value = actual_value - discount_value;
+                    finalprice.textContent = final_value;
+
+                    purchasebtn.onclick = function() {
+                        if(diamondjson[3].price <= user_coin) {
+
+                            diaamount.value += diamondjson[3].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            user_coin -= diamondjson[3].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+
+                if(i == 9){
+                    actual_value = diamondjson[4].price
+                    actualprice.textContent = actual_value
+
+                    discount_value = DIS;
+                    discountprice.textContent = (discount_value * 100) + "%";
+
+                    final_value = actual_value - discount_value;
+                    finalprice.textContent = final_value;
+                    purchasebtn.onclick = function() {
+                        if(diamondjson[4].price <= user_coin) {
+
+                            diaamount.value += diamondjson[4].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            user_coin -= diamondjson[4].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+
+                if(i == 11){
+                    actual_value = diamondjson[5].price
+                    actualprice.textContent = actual_value
+
+                    discount_value = DIS;
+                    discountprice.textContent = (discount_value * 100) + "%";
+
+                    final_value = actual_value - discount_value;
+                    finalprice.textContent = final_value;
+
+                    purchasebtn.onclick = function() {
+                        if(diamondjson[5].price <= user_coin) {
+
+                            diaamount.value += diamondjson[5].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            user_coin -= diamondjson[5].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+
+                if(i == 13){
+                    actual_value = diamondjson[6].price
+                    actualprice.textContent = actual_value
+
+                    discount_value = DIS;
+                    discountprice.textContent = (discount_value * 100) + "%";
+
+                    final_value = actual_value - discount_value;
+                    finalprice.textContent = final_value;
+                    purchasebtn.onclick = function() {
+                        if(diamondjson[6].price <= user_coin) {
+
+                            diaamount.value += diamondjson[6].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            user_coin -= diamondjson[6].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+
+                if(i == 15){
+                     actual_value = diamondjson[7].price
+                     actualprice.textContent = actual_value
+
+                     discount_value = DIS;
+                     discountprice.textContent = (discount_value * 100) + "%";
+
+                     final_value = actual_value - discount_value;
+                     finalprice.textContent = final_value;
+
+                    purchasebtn.onclick = function() {
+                        if(diamondjson[7].price <= user_coin) {
+
+                            diaamount.value += diamondjson[7].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            user_coin -= diamondjson[7].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+
+                if(i == 17){
+                    actual_value = diamondjson[8].price
+                    actualprice.textContent = actual_value
+
+                    discount_value = DIS;
+                    discountprice.textContent = (discount_value * 100) + "%";
+
+                    final_value = actual_value - discount_value;
+                    finalprice.textContent = final_value;
+
+                    purchasebtn.onclick = function() {
+                        if(diamondjson[8].price <= user_coin) {
+
+                            diaamount.value += diamondjson[8].amount;
+                            diaamount.textContent = diaamount.value;
+
+                            user_coin -= diamondjson[8].price;
+                            goldprice.textContent = user_coin;
+
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
+                            buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+                        }
+                        else {
+                            window.alert('You have insufficient coin to buy the requested diamond,Sir.')
+                        }
+                    }
+                };
+            };
+        };
+        // End of diamonds selection
+    </script>
+    {% endblock %}
+</body>
+</html>

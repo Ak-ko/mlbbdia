@@ -1,0 +1,126 @@
+:root{
+    --dbc:#1f0738;
+    --lbc:#365cf5;
+}
+
+body {
+
+    margin:0;
+    padding:0;
+
+    font-family:sans-serif;
+
+    background-color:var(--dbc);
+
+    margin:0;
+    overflow:hidden;
+}
+
+main {
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+.header {
+    transform:translateY(80px);
+}
+
+.header span {
+
+    color:#f4f4f4;
+    font-weight:bold;
+    text-shadow:10px 10px 10px #000;
+    font-variant:small-caps;
+    font-style:italic;
+}
+
+.diamonds {
+    width:50px;
+    transform:rotate(-45deg);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    display:none;
+}
+
+.inputbox {
+    width:500px;
+    height:400px;
+
+    position:relative;
+    border-radius:7px;
+    background-color:var(--dbc);
+    box-shadow:-5px -5px 10px #000, 5px 5px 10px #000;
+}
+
+form {
+    width:100%;
+    margin-top:28%;
+}
+
+.inputbox input, .btn {
+    margin:auto;
+}
+
+.btn {
+    width:50%;
+    transform:scale(0);
+    background-color:var(--dbc);
+
+    color:var(--dbc);
+
+    transition:all 1s;
+}
+
+.inputbox input {
+    border:3px solid gray;
+}
+
+.form-control {
+    width:50%;
+}
+
+.userids {
+    position:relative;
+    overflow:hidden;
+}
+
+#user, #zone {
+    display:inline-block;
+
+    width:49%;
+    height:76%;
+
+    position:absolute;
+    top:2px;
+    left:5px;
+    background-color:var(--dbc);
+    border-radius:1px;
+    box-sizing:border-box;
+
+    transform:translate(50%);
+
+    transition:all 0.4s;
+}
+
+.zoneids {
+    position:relative;
+    overflow:hidden;
+}
+
+.userids:hover #user, .zoneids:hover #zone {
+    transform:translate(50%,-105%);
+}
+
+.form-control:focus {
+    box-shadow:none;
+    border:3px solid gray;
+}
+
+.form-control:focus .userids {
+    transform:translate(50%,-105%);
+}
