@@ -1,4 +1,4 @@
-body {
+.errors {
     height:100vh;
 
     background-color:#1f0738;
@@ -6,4 +6,5 @@ body {
     display:flex;
     align-items:center;
     justify-content:center;
+    flex-direction:column;
 }

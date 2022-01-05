@@ -1,5 +1,5 @@
 # MLBB Diamond Shop
-#### Video Demo:  <'https://youtu.be/tbyi4HFwIfY'>
+#### Video Demo:  'https://youtu.be/tbyi4HFwIfY'
 #### Description:
 This is diamond selling page but still incomplete in somepoint. I hope you guys enjoy it.
 

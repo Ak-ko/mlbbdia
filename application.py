@@ -2,6 +2,7 @@ import os
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, jsonify, make_response
+import json
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -37,10 +38,13 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+
 ### home ###
-@app.route("/")
+@app.route('/', methods=["GET","POST"])
+@app.route("/<coinBuy>")
+# @app.route("/<string:coinBuy>")
 @login_required
-def index():
+def index(coinBuy=None):
 
     users = session["user_id"]
 
@@ -119,10 +123,13 @@ def index():
             diaamount += 1
         diaamount = len(DIAAMOUNT)
 
+
     return render_template(
             'index.html',
 
             userid=userid,
+
+            users=users,
 
             zoneid=zoneid,
 
@@ -152,10 +159,10 @@ def login():
 
         # get the details of a user
 
-        if len(request.form.get("userid")) is not 9:
+        if len(request.form.get("userid")) != 9:
             return render_template('error.html',status = "INVALID USERID",code = 406, message = "Sir, please provide valid your userid.")
 
-        if len(request.form.get("zoneid")) is not 4:
+        if len(request.form.get("zoneid")) != 4:
             return render_template('error.html',status="INVALID ZONEID",code=406,message="Sir, please provide valid your zoneid")
 
         rows = db.execute("SELECT * FROM userinfos WHERE userid = ?", request.form.get('userid'))

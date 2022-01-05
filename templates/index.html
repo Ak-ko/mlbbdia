@@ -1,66 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLBB | Diamond  {% block title %}{% endblock %}</title>
+{% extends "layout.html" %}
 
-    <link href="{{ url_for('static', filename='img/miya.png') }}" rel="icon" type="img/png" sizez="16x16" />
-
-    <!-- boostrap css -->
-    <link href="{{ url_for('static',filename='css/boostrap.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- fontawesome css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- custome css -->
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    {% block body %}
-
-    <!-- Start Navbar -->
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-
-        <a href="/" class="navbar-brand ms-3">
-            <img src="{{ url_for('static', filename='img/diamond.png') }}" alt="diamond" class="diamondimg" />
-        </a>
+{% block title %}
+MLBB | Home
+{% endblock %}
 
 
-        <button class="navbar-toggler ms-auto collapsebuttons" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="icons"></span>
-        </button>
-
-
-       <div class="container">
-        <div id="mynavbar" class="navbar-collapse collapse">
-
-            <ul class="navbar-nav ms-md-auto navbars">
-                <li class="nav-item">
-                    <a href="/" class="nav-link">
-                        <img src="{{ url_for('static', filename='img/diamondamount.png') }}" alt="diamondamonut" class="logo" />
-                        <span class="diamondamounts">0</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a data-bs-target="#goldmodal" data-bs-toggle="modal" class="nav-link mt-1 mx-3 me-5" style="cursor:pointer;">
-                        <img src="{{ url_for('static', filename='img/coins.png') }}" alt="coins" class="coins" />
-                        <span name="coinamount" id="coinprice" class="coinamounts">{{ coin }}</span>
-                        <span class="fas fa-plus ms-2 plussign" data-bs-target="#goldmodal" data-bs-toggle="modal"></span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#logoutmodal" class="nav-link mt-1 fw-bold text-danger" data-bs-toggle="modal" style="font-size:20px;">
-                        Logout
-                    </a>
-                </li>
-            </ul>
-        </div>
-       </div>
-    </nav>
-    <!-- End Navbar -->
-
+{% block content %}
     <!-- Start Left & Right Section -->
     <section class="mt-5">
         <div class="container-fluid px-xl-5 px-lg-4 px-md-3 px-sm-5">
@@ -100,6 +45,7 @@
 
                 <div class="col-xl-8 col-lg-8 col-md-8 col-12 pe-lg-3 pe-sm-3 rightsections">
                     <div class="sidedivs">
+
                         <fieldset id="fieldset">
                             <legend>
                                 <span class="fw-bold spansymbols mx-3">1</span>
@@ -129,6 +75,7 @@
                                 </div>
                             </form>
                         </fieldset>
+
                        <div class="container-fluid mt-1">
                             <p class="sentences pb-2">
                                 To find your User ID, click on your avatar in the top left corner of the main game screen. Then go to the "Basic Info" tab. Your user ID is shown below your nickname. Please input the complete user ID here, e.g. 12345678(1234).
@@ -248,7 +195,7 @@
                     <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body goldcardbody">
-                    <ul class="goldbuttons">
+                        <ul class="goldbuttons">
                         {% for coinprice in coinprices %}
                             <li>
                                 <div class="card goldcardbuttons">
@@ -261,16 +208,19 @@
                                 </div>
                             </li>
                         {% endfor %}
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <h6 class="mx-auto" style="font-style:italic;">
-                        <span class="commas">&ldquo;</span>
-                        Click to
-                        <a href="/" id="purchasebtn" class="btn btn-primary btn-sm p-0 px-2 mb-1 text-uppercase" data-bs-dismiss='modal'>Purchase</a>
-                        <span class="commas">&rdquo;</span>
-                    </h6>
-                </div>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <h6 class="mx-auto" style="font-style:italic;">
+                            <span class="commas">&ldquo;</span>
+                                Click to
+                                    <button id="purchasebtn" class="btn btn-primary btn-sm p-0 px-2 mb-1 text-uppercase" data-bs-dismiss="modal" onclick="submit();" style="font-style:italic;" >
+                                        Purchase
+                                    </button>
+                            <span class="commas">&rdquo;</span>
+                        </h6>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -278,16 +228,61 @@
 
     <!-- End Modal Section -->
 
-
-    <!-- popper js -->
-    <script src="{{ url_for('static',filename='js/popper.js') }}" type="text/javascript"></script>
-    <!-- boostrap js -->
-    <script src="{{ url_for('static',filename='js/boostrap.js') }}" type="text/javascript"></script>
-    <!-- custome js -->
-    <script src="{{ url_for('static',filename='js/script.js') }}" type="text/javascript"></script>
-
-
     <script type="text/javascript">
+        var userid = document.querySelector('#userid');
+        var serverid = document.querySelector('#serverid');
+
+        userid.onblur = function(){
+            let value = userid.value;
+            if(!value){
+                userid.classList.add('is-invalid');
+                userid.style.border = '1px solid rgba(0,0,0,0.2)';
+                userid.style.backgroundImage = 'none';
+                userid.style.paddingLeft = '36px';
+                userid.style.boxShadow = 'none';
+            }
+            else{
+                userid.classList.remove('is-invalid');
+                userid.style.paddingLeft = '0px';
+            };
+        };
+
+        serverid.onblur = function() {
+            let value = serverid.value;
+            if(!value){
+                serverid.classList.add('is-invalid');
+                serverid.style.border = '1px solid rgba(0,0,0,0.2)';
+                serverid.style.backgroundImage = 'none';
+                serverid.style.paddingLeft = '36px';
+                serverid.style.boxShadow = 'none';
+            }
+            else{
+                serverid.classList.remove('is-invalid');
+                serverid.style.paddingLeft = '0px';
+            }
+        }
+        // END INPUT INVALIDS
+
+
+        // START SPAN QUESTION MARK
+        var errorimg = document.querySelector(".errorimgs");
+        var qusetionmark = document.querySelector(".questionmarks");
+
+        qusetionmark.onmouseover = function(){
+            errorimg.style.display = 'block';
+        }
+        qusetionmark.onmouseout = function(){
+            errorimg.style.display = 'none';
+        }
+        // END SPAN QUESTION MARK
+
+        // start footer section
+        const yearNow = document.querySelector('.yearNow');
+        const getYear = new Date().getFullYear();
+        yearNow.textContent = getYear;
+        // end footer section
+
+
         // START GOLD selection
         var gbuttons = document.querySelector('.goldbuttons');
 
@@ -306,6 +301,18 @@
 
         // bankmoney from flask
         let bankmoney = JSON.parse('{{ bankmoney | tojson | safe }}')[0].amount;
+
+        // entry = {
+        //     "coin" : 100
+        // }
+
+        // // testing
+        // const request = new XMLHttpRequest();
+        // request.open("POST",`https://ide-01be96522f6b41d7a41a0f7094a7f97f-8080.cs50.ws/${JSON.stringify(entry)}`);
+        // request.onload = () => {
+        //     console.log("HELLO WORLD");
+        // }
+        // request.send();
 
         for(let i = 1; i < gbuttons.childNodes.length; i+=2){
 
@@ -338,7 +345,8 @@
                 // for ui
                 switch(i){
                     case 1:
-                        purchasebtn1.onclick = function() {
+                        purchasebtn1.onclick = function submit() {
+
                             if (coinjson[0].amount <= bankmoney) {
 
                                 user_coin += coinjson[0].amount;
@@ -347,8 +355,46 @@
 
                                 bankmoney -= coinjson[0].amount;
 
-                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
-                                gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
+
+
+                                let entry = {
+                                    "coins" : user_coin
+                                }
+
+                                // const request = new XMLHttpRequest();
+                                // request.open("POST",`https://ide-01be96522f6b41d7a41a0f7094a7f97f-8080.cs50.ws/${JSON.stringify(entry)}`);
+                                // request.onload = () => {
+                                //     console.log("HELLO WORLD");
+                                // }
+                                // request.send();
+
+
+
+                                // fetch("${window.origin}",{
+                                //     method : "POST",
+                                //     credentials : "include",
+                                //     body : JSON.stringify(entry),
+                                //     cache : "no-cache",
+                                //     headers : new Headers({
+                                //         "content-type" : "application/json"
+
+                                //     })
+                                // })
+
+                                // .then(function(response) {
+
+                                //     if (response.status !== 200){
+                                //         console.log("Not Ok")
+                                //     }
+
+                                //     response.json().then(function(data) {
+                                //         console.log(data);
+                                //     })
+                                // })
+
+                            // fetch(url)
+                            //     .then(res => console.log(res = JSON.stringify(entry) ))
+                            //     .catch(err => console.log(err))
                             }
 
                             else {
@@ -466,6 +512,7 @@
         };
 
         //Start of diamonds selection
+
         var buttons = document.querySelector('.buttons');
 
         const DIS = 0.05
@@ -786,6 +833,6 @@
         };
         // End of diamonds selection
     </script>
-    {% endblock %}
-</body>
-</html>
+{% endblock %}
+
+
