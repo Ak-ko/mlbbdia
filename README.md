@@ -3,6 +3,10 @@
 #### Description:
 This is diamond selling page but still incomplete in somepoint. I hope you guys enjoy it.
 
+Run as ~/$ flask run
+
+--No need to export any api--
+
 First thing is you need to login with your userid and zone id corresponding with your mlbb. If you don't play mlbb just put 111111111 and 1111 in it and it will
 work.
 
@@ -12,3 +16,4 @@ Those coins can be bought by your bankaccount which is artifical bank account an
 If you write least character of userid and zoneid, you will found some problem and you will see the Not Found page as the result.
 
 Thanks for watching and using. I will try my best.
+
