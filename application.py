@@ -40,8 +40,7 @@ Session(app)
 
 
 ### home ###
-@app.route('/', methods=["GET","POST"])
-@app.route("/<coinBuy>")
+@app.route("/",methods=["GET","POST"])
 # @app.route("/<string:coinBuy>")
 @login_required
 def index(coinBuy=None):
@@ -59,6 +58,9 @@ def index(coinBuy=None):
     # coin amount
     coins = db.execute('SELECT coinamount FROM userinfos WHERE userid = ?', userid)
     coin_auto = coins[0]["coinamount"]
+
+    diamondInDb = db.execute('SELECT diamondamount FROM userinfos WHERE userid = ?', userid)
+    diamondDisplay = diamondInDb[0]['diamondamount']
 
     # getting the prices
     coins = db.execute('SELECT * FROM coins')
@@ -124,6 +126,8 @@ def index(coinBuy=None):
         diaamount = len(DIAAMOUNT)
 
 
+
+
     return render_template(
             'index.html',
 
@@ -145,8 +149,48 @@ def index(coinBuy=None):
 
             diamondjson=diamondjson,
 
+            diamondDisplay=diamondDisplay,
+
             bankmoney=bankmoney
         )
+
+@app.route('/process/<string:entry>',methods=['POST','GET'])
+def process(entry):
+
+    entryCoins = json.loads(entry)
+
+    coins = entryCoins['coins']
+
+    coinbought = entryCoins['coinbought']
+    coinamount = coinbought
+
+    currentUser = session["user_id"]
+
+    db.execute('UPDATE userinfos SET coinamount = ? WHERE id = ?', coins, currentUser)
+
+    db.execute('INSERT INTO coinbuy(buyerid,coinprice,coinamount) VALUES (?,?,?)', currentUser, coinbought, coinamount)
+    return 'Purchase Successfull !'
+
+@app.route('/diamonds/<string:diamond_entry>', methods=["POST","GET"])
+def diamonds(diamond_entry):
+
+    diamondsEntry = json.loads(diamond_entry);
+
+    diaAmount = diamondsEntry['diamondAmount']
+
+    diaPrice = diamondsEntry['diamondPrice']
+
+    coinAfter = diamondsEntry['coinafter']
+
+    currentUser = session["user_id"]
+
+
+    db.execute("UPDATE userinfos SET coinamount = ? WHERE id = ?", coinAfter,currentUser)
+
+    db.execute('INSERT INTO diamondbuy(diabuyerid, diaprice, diaamount) VALUES (?,?,?)', currentUser, diaPrice, diaAmount)
+
+    db.execute('UPDATE userinfos SET diamondamount = ? WHERE id = ?', diaAmount, currentUser)
+    return 'Operation Success!'
 
 
 ### login ###

@@ -128,7 +128,7 @@ MLBB | Home
                             </div>
 
                             <div class="d-grid mt-3 pb-1 roundedcorners">
-                                <button class="btn btn-primary rounded-0 text-uppercase purchasebtns">Purchase</button>
+                                <button class="btn btn-primary rounded-0 text-uppercase purchasebtns" onclick="bought();">Purchase</button>
                             </div>
                         </div>
 
@@ -214,7 +214,7 @@ MLBB | Home
                         <h6 class="mx-auto" style="font-style:italic;">
                             <span class="commas">&ldquo;</span>
                                 Click to
-                                    <button id="purchasebtn" class="btn btn-primary btn-sm p-0 px-2 mb-1 text-uppercase" data-bs-dismiss="modal" onclick="submit();" style="font-style:italic;" >
+                                    <button  type="button" id="purchasebtn" class="btn btn-primary btn-sm p-0 px-2 mb-1 text-uppercase" data-bs-dismiss="modal" onclick="submit();" style="font-style:italic;" >
                                         Purchase
                                     </button>
                             <span class="commas">&rdquo;</span>
@@ -302,18 +302,6 @@ MLBB | Home
         // bankmoney from flask
         let bankmoney = JSON.parse('{{ bankmoney | tojson | safe }}')[0].amount;
 
-        // entry = {
-        //     "coin" : 100
-        // }
-
-        // // testing
-        // const request = new XMLHttpRequest();
-        // request.open("POST",`https://ide-01be96522f6b41d7a41a0f7094a7f97f-8080.cs50.ws/${JSON.stringify(entry)}`);
-        // request.onload = () => {
-        //     console.log("HELLO WORLD");
-        // }
-        // request.send();
-
         for(let i = 1; i < gbuttons.childNodes.length; i+=2){
 
             var btn_before = window.getComputedStyle(gbuttons.childNodes[i].firstElementChild,'::before');
@@ -342,6 +330,7 @@ MLBB | Home
 
                 };
 
+
                 // for ui
                 switch(i){
                     case 1:
@@ -358,43 +347,18 @@ MLBB | Home
 
 
                                 let entry = {
-                                    "coins" : user_coin
+                                    "coins" : user_coin,
+                                    'coinbought' : coinjson[0].amount
                                 }
 
-                                // const request = new XMLHttpRequest();
-                                // request.open("POST",`https://ide-01be96522f6b41d7a41a0f7094a7f97f-8080.cs50.ws/${JSON.stringify(entry)}`);
-                                // request.onload = () => {
-                                //     console.log("HELLO WORLD");
-                                // }
-                                // request.send();
+                                const request = new XMLHttpRequest();
+                                request.open("POST",`/process/${JSON.stringify(entry)}`);
+                                request.onload = () => {
+                                    const flaskMessage = request.responseText;
+                                    console.log(flaskMessage);
+                                }
+                                request.send();
 
-
-
-                                // fetch("${window.origin}",{
-                                //     method : "POST",
-                                //     credentials : "include",
-                                //     body : JSON.stringify(entry),
-                                //     cache : "no-cache",
-                                //     headers : new Headers({
-                                //         "content-type" : "application/json"
-
-                                //     })
-                                // })
-
-                                // .then(function(response) {
-
-                                //     if (response.status !== 200){
-                                //         console.log("Not Ok")
-                                //     }
-
-                                //     response.json().then(function(data) {
-                                //         console.log(data);
-                                //     })
-                                // })
-
-                            // fetch(url)
-                            //     .then(res => console.log(res = JSON.stringify(entry) ))
-                            //     .catch(err => console.log(err))
                             }
 
                             else {
@@ -404,7 +368,7 @@ MLBB | Home
                         break;
 
                     case 3:
-                        purchasebtn1.onclick = function() {
+                        purchasebtn1.onclick = function submit() {
                             if (coinjson[1].amount <= bankmoney) {
 
                                 user_coin += coinjson[1].amount;
@@ -417,6 +381,19 @@ MLBB | Home
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
 
+                                let entry = {
+                                    "coins" : user_coin,
+                                    'coinbought' : coinjson[1].amount
+                                }
+
+                                const request = new XMLHttpRequest();
+                                request.open("POST",`/process/${JSON.stringify(entry)}`);
+                                request.onload = () => {
+                                    const flaskMessage = request.responseText;
+                                    console.log(flaskMessage);
+                                }
+                                request.send();
+
                             }
 
                             else {
@@ -426,7 +403,7 @@ MLBB | Home
                         break;
 
                     case 5:
-                        purchasebtn1.onclick = function() {
+                        purchasebtn1.onclick = function submit() {
                             if (coinjson[2].amount <= bankmoney) {
 
                                 user_coin += coinjson[2].amount;
@@ -438,6 +415,19 @@ MLBB | Home
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
 
+                                let entry = {
+                                    "coins" : user_coin,
+                                    'coinbought' : coinjson[2].amount
+                                }
+
+                                const request = new XMLHttpRequest();
+                                request.open("POST",`/process/${JSON.stringify(entry)}`);
+                                request.onload = () => {
+                                    const flaskMessage = request.responseText;
+                                    console.log(flaskMessage);
+                                }
+                                request.send();
+
                             }
 
                             else {
@@ -447,7 +437,7 @@ MLBB | Home
                         break;
 
                     case 7:
-                        purchasebtn1.onclick = function() {
+                        purchasebtn1.onclick = function submit() {
                             if (coinjson[3].amount <= bankmoney) {
 
                                 user_coin += coinjson[3].amount;
@@ -459,6 +449,19 @@ MLBB | Home
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
 
+                                let entry = {
+                                    "coins" : user_coin,
+                                    'coinbought' : coinjson[3].amount
+                                }
+
+                                const request = new XMLHttpRequest();
+                                request.open("POST",`/process/${JSON.stringify(entry)}`);
+                                request.onload = () => {
+                                    const flaskMessage = request.responseText;
+                                    console.log(flaskMessage);
+                                }
+                                request.send();
+
                             }
 
                             else {
@@ -468,7 +471,7 @@ MLBB | Home
                         break;
 
                     case 9:
-                        purchasebtn1.onclick = function() {
+                        purchasebtn1.onclick = function submit() {
                             if (coinjson[4].amount <= bankmoney) {
 
                                 user_coin += coinjson[4].amount;
@@ -480,6 +483,20 @@ MLBB | Home
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
 
+
+                                let entry = {
+                                    "coins" : user_coin,
+                                    'coinbought' : coinjson[4].amount
+                                }
+
+                                const request = new XMLHttpRequest();
+                                request.open("POST",`/process/${JSON.stringify(entry)}`);
+                                request.onload = () => {
+                                    const flaskMessage = request.responseText;
+                                    console.log(flaskMessage);
+                                }
+                                request.send();
+
                             }
 
                             else {
@@ -489,7 +506,7 @@ MLBB | Home
                         break;
 
                     case 11:
-                        purchasebtn1.onclick = function() {
+                        purchasebtn1.onclick = function submit() {
                             if (coinjson[5].amount <= bankmoney) {
 
                                 user_coin += coinjson[5].amount;
@@ -500,6 +517,19 @@ MLBB | Home
 
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnbefore',0);
                                 gbuttons.childNodes[i].firstElementChild.style.setProperty('--goldbtnafter',0);
+
+                                let entry = {
+                                    "coins" : user_coin,
+                                    'coinbought' : coinjson[5].amount
+                                }
+
+                                const request = new XMLHttpRequest();
+                                request.open("POST",`/process/${JSON.stringify(entry)}`);
+                                request.onload = () => {
+                                    const flaskMessage = request.responseText;
+                                    console.log(flaskMessage);
+                                }
+                                request.send();
                             }
 
                             else {
@@ -589,9 +619,11 @@ MLBB | Home
                     final_value = actual_value - discount_value;
                     finalprice.textContent = final_value;
 
-                    purchasebtn.onclick = function() {
+
+                    purchasebtn.onclick = function bought() {
                         if(diamondjson[0].price <= user_coin) {
                             diaamount.value += diamondjson[0].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
 
                             // getting the actual coin value.
@@ -600,7 +632,22 @@ MLBB | Home
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[0].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open("POST",`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returnn = request.responseText;
+                                console.log(returnn);
+                            };
+                            request.send();
                         }
+
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')
                         }
@@ -617,11 +664,12 @@ MLBB | Home
                     final_value = actual_value - discount_value;
                     finalprice.textContent = final_value;
 
-                    purchasebtn.onclick = function() {
+                    purchasebtn.onclick = function bought() {
 
                         if(diamondjson[1].price <= user_coin) {
 
                             diaamount.value += diamondjson[1].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
 
                             user_coin -= diamondjson[1].price;
@@ -629,6 +677,20 @@ MLBB | Home
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[1].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open('POST',`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returrn = request.responseText;
+                                console.log(returrn);
+                            };
+                            request.send();
                         }
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')
@@ -646,10 +708,11 @@ MLBB | Home
                     final_value = actual_value - discount_value;
                     finalprice.textContent = final_value;
 
-                    purchasebtn.onclick = function() {
+                    purchasebtn.onclick = function bought() {
                         if(diamondjson[2].price <= user_coin) {
 
                             diaamount.value += diamondjson[2].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
 
                             user_coin -= diamondjson[2].price;
@@ -657,6 +720,20 @@ MLBB | Home
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[2].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open('POST',`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returrn = request.responseText;
+                                console.log(returrn);
+                            };
+                            request.send();
                         }
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')
@@ -674,10 +751,11 @@ MLBB | Home
                     final_value = actual_value - discount_value;
                     finalprice.textContent = final_value;
 
-                    purchasebtn.onclick = function() {
+                    purchasebtn.onclick = function bought() {
                         if(diamondjson[3].price <= user_coin) {
 
                             diaamount.value += diamondjson[3].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
 
                             user_coin -= diamondjson[3].price;
@@ -685,6 +763,20 @@ MLBB | Home
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[3].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open('POST',`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returrn = request.responseText;
+                                console.log(returrn);
+                            };
+                            request.send();
                         }
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')
@@ -701,10 +793,11 @@ MLBB | Home
 
                     final_value = actual_value - discount_value;
                     finalprice.textContent = final_value;
-                    purchasebtn.onclick = function() {
+                    purchasebtn.onclick = function bought() {
                         if(diamondjson[4].price <= user_coin) {
 
                             diaamount.value += diamondjson[4].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
 
                             user_coin -= diamondjson[4].price;
@@ -712,6 +805,20 @@ MLBB | Home
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[4].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open('POST',`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returrn = request.responseText;
+                                console.log(returrn);
+                            };
+                            request.send();
                         }
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')
@@ -729,10 +836,11 @@ MLBB | Home
                     final_value = actual_value - discount_value;
                     finalprice.textContent = final_value;
 
-                    purchasebtn.onclick = function() {
+                    purchasebtn.onclick = function bought() {
                         if(diamondjson[5].price <= user_coin) {
 
                             diaamount.value += diamondjson[5].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
 
                             user_coin -= diamondjson[5].price;
@@ -740,6 +848,20 @@ MLBB | Home
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[5].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open('POST',`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returrn = request.responseText;
+                                console.log(returrn);
+                            };
+                            request.send();
                         }
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')
@@ -756,10 +878,11 @@ MLBB | Home
 
                     final_value = actual_value - discount_value;
                     finalprice.textContent = final_value;
-                    purchasebtn.onclick = function() {
+                    purchasebtn.onclick = function bought() {
                         if(diamondjson[6].price <= user_coin) {
 
                             diaamount.value += diamondjson[6].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
 
                             user_coin -= diamondjson[6].price;
@@ -767,6 +890,20 @@ MLBB | Home
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[6].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open('POST',`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returrn = request.responseText;
+                                console.log(returrn);
+                            };
+                            request.send();
                         }
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')
@@ -784,10 +921,11 @@ MLBB | Home
                      final_value = actual_value - discount_value;
                      finalprice.textContent = final_value;
 
-                    purchasebtn.onclick = function() {
+                    purchasebtn.onclick = function bought() {
                         if(diamondjson[7].price <= user_coin) {
 
                             diaamount.value += diamondjson[7].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
 
                             user_coin -= diamondjson[7].price;
@@ -795,6 +933,20 @@ MLBB | Home
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[7].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open('POST',`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returrn = request.responseText;
+                                console.log(returrn);
+                            };
+                            request.send();
                         }
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')
@@ -812,17 +964,34 @@ MLBB | Home
                     final_value = actual_value - discount_value;
                     finalprice.textContent = final_value;
 
-                    purchasebtn.onclick = function() {
+                    purchasebtn.onclick = function bought() {
                         if(diamondjson[8].price <= user_coin) {
 
                             diaamount.value += diamondjson[8].amount;
+                            let dAmount = diaamount.value;
                             diaamount.textContent = diaamount.value;
+
 
                             user_coin -= diamondjson[8].price;
                             goldprice.textContent = user_coin;
 
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnbefore',0);
                             buttons.childNodes[i].firstElementChild.style.setProperty('--btnafter',0);
+
+
+                            let diamond_entry = {
+                                'diamondAmount' : dAmount,
+                                'diamondPrice' : diamondjson[8].price,
+                                'coinafter' : user_coin
+                            }
+
+                            const request = new XMLHttpRequest();
+                            request.open('POST',`/diamonds/${JSON.stringify(diamond_entry)}`);
+                            request.onload = () => {
+                                const returrn = request.responseText;
+                                console.log(returrn);
+                            };
+                            request.send();
                         }
                         else {
                             window.alert('You have insufficient coin to buy the requested diamond,Sir.')

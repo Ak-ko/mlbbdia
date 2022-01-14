@@ -22,7 +22,7 @@ MLBB | Log In
                     </div>
 
                     <div class="d-grid">
-                        <button type="submit" class="loginbuttons">
+                        <button type="submit" class="btn loginbuttons">
                             Submit
                         </button>
                     </div>
@@ -38,24 +38,34 @@ MLBB | Log In
 
                var inputs = document.querySelector('.form-control')
 
-               var btn = document.querySelector('.buttons');
+               var btn_login = document.querySelector('.loginbuttons');
 
                userid.onblur = function() {
-                   if(userid.value) {
-                       console.log(userid.value);
-                       btn.style.color = "#fff";
-                       btn.style.transform = 'scale(1)';
-                       btn.style.boxShadow = '5px 5px 10px #000';
-                       btn.classList.add('disabled');
+                   if(userid.value && (userid.value).length == 9) {
+                       btn_login.style.color = "#fff";
+                       btn_login.style.transform = 'scale(1)';
+                       btn_login.style.boxShadow = '5px 5px 10px #000';
+                       btn_login.classList.add('disabled');
+                   }
+                   else{
+                       btn_login.style.transform = 'scale(0)';
                    }
                }
 
                zoneid.onkeyup = function() {
+
                    if(zoneid.value) {
-                       btn.classList.remove('disabled');
+                       btn_login.classList.remove('disabled');
+
+                       let zvalue = zoneid.value
+                       if(zvalue.length != 4){
+                           btn_login.classList.add('disabled');
+                       }
+
                    }
+
                    else{
-                       btn.classList.add('disabled');
+                       btn_login.classList.add('disabled');
                    }
                }
         </script>
