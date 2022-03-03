@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "gh-pages": "^3.2.3",
+    "vim": "^0.1.0"
+  },
+  "scripts": {
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
+  }
+}

@@ -3,7 +3,7 @@
 #### Description:
 This is diamond selling page but still incomplete in somepoint. I hope you guys enjoy it.
 
----------------------------------
+/---------------------------------/
 This project is created by
 
 --Front-End
@@ -15,8 +15,8 @@ This project is created by
 --Back-End
 -Python
 -Flask (framework)
----------------------------------
-Run as ~/$ flask run
+/---------------------------------/
+Run as `~/$ flask run`
 
 --No need to export any api--
 
