@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "gh-pages": "^3.2.3",
-    "vim": "^0.1.0"
+    "vim": "^0.1.0",
+    "homepage" : "https://Ak-ko.github.io/mlbbdia"
   },
   "scripts": {
     "predeploy": "yarn build",
