@@ -6,15 +6,15 @@ This is diamond selling page but still incomplete in somepoint. I hope you guys 
 
 This project is created by
 
---Front-End
--HTML
--CSS
--JS
--Boostrap
+## Front-End
+- HTML
+- CSS
+- JS
+- Boostrap
 
---Back-End
--Python
--Flask (framework)
+## Back-End
+- Python
+- Flask (python's web framework)
 
 Run as `~/$ flask run`
 
@@ -32,6 +32,5 @@ The coin in there is the main of that program.
 Coin should be bought by your own money that in your account like bank account or something else. And also using these coins to buy the requirements for skins
 in your game, MLBB which are diamonds.
 
-Thanks for watching and using. I will try my best.
-
+Please give star if you have fun with it!
 
