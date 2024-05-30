@@ -3,7 +3,7 @@
 #### Description:
 This is diamond selling page but still incomplete in somepoint. I hope you guys enjoy it.
 
-/---------------------------------/
+
 This project is created by
 
 --Front-End
@@ -15,10 +15,10 @@ This project is created by
 --Back-End
 -Python
 -Flask (framework)
-/---------------------------------/
+
 Run as `~/$ flask run`
 
---No need to export any api--
+### No need to export any api ###
 
 First thing is you need to login with your userid and zone id corresponding with your mlbb. If you don't play mlbb just put 111111111 and 1111 in it and it will
 work.
